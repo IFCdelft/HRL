@@ -1,12 +1,18 @@
 function relativeState = getRelativeState(maze,absoluteState)
 %% relativeState = getRelativeState(maze,absoluteState)
 % Relative state indicates distance to walls/obstacles in forward, left and
-% right directions. relativeState = [LEFT,FORWARD,RIGHT]. Distance can be
+% right directions and the current absolute heading. relativeState = [LEFT,FORWARD,RIGHT,HEADING]. Distance can be
 % 1,2,3 when a wall/obstacle is detected 1,2,3 blocks away. If distance is
 % 0, then no wall/obstacle was detected within the sense-range of 3.
 
+% Define headings
+NORTH       = 1;
+EAST        = 2;
+SOUTH       = 3;
+WEST        = 4;
+
 %default
-relativeState = zeros(1,3);
+relativeState = zeros(1,4);
 
 if length(absoluteState)~=3
     error('Incorrect state')
@@ -14,6 +20,9 @@ end
 if absoluteState(1)<1 || absoluteState(1)>size(maze,1) || absoluteState(2)<1 || absoluteState(2)>size(maze,2) || absoluteState(3)<1 || absoluteState(3)>4
     error('Incorrect state')
 end
+
+% Add heading to relative state:
+relativeState(1,4) = absoluteState(3);
 
 % Make maze boolean (if not already so)
 % walls are TRUE
