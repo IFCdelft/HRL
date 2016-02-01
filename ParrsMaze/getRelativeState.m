@@ -101,7 +101,7 @@ switch h
         end
     case WEST
         for lookLeft=1:1:3
-            if r+lookLeft<=size(maze,1) && maze(r-lookLeft,c)
+            if r+lookLeft<=size(maze,1) && maze(r+lookLeft,c)
                 relativeState(LEFT)=lookLeft;
                 break
             end
